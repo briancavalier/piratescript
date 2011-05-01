@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	
+	<title>Piratescript or Noobscript?</title>
+	
+	<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" charset="utf-8">
+	
+	<script type="text/javascript">
+		(function(global) {
+			global.require = {
+				baseUrl: "js",
+				paths: {
+					"wire": "./wire",
+					"domReady": "curl/domReady"
+				}
+			};
+
+		})(window);
+	</script>
+	
+	<script type="text/javascript" src="js/curl.js"></script>
+	
+	<script type="text/javascript">
+		require(['wire!spec']);
+	</script>
+</head>
+
+<body>
+	<div>
+		<div id="codez-view"></div>
+		<div id="score-view"></div>
+	</div>
+</body>
+</html>
