@@ -11,7 +11,7 @@ function(template) {
 	}
 	
 	ScoreView.prototype = {
-		
+		_updateScore: function() {}
 	};
 	
 	return ScoreView;
