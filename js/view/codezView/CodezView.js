@@ -11,15 +11,30 @@ function(when, template) {
 	function CodezView(node) {
 		this.node = node;
 		this.render();
-		// node.innerHTML = template;
 	};
 	
 	CodezView.prototype = {
-		render: function() {
-			this.node.innerHTML = template.replace(/\$\{(\w+)\}/, function(s, key) { return this[key] === undef ? '' : this[key]; });
+		render: function(map) {
+			this.node.innerHTML = template.replace(/\$\{(\w+)\}/, function(s, key) { 
+				return map && map[key] !== undef ? map[key] : '';
+			});
 		},
-		newCodez: function(data) {
-			var d = when.Deferred();
+		
+		showCodez: function(codez) {
+			var d, self;
+			
+			this.render({ codez: codez });
+			
+			d = when.Deferred();
+			self = this;
+			
+			this.node.onclick = function(e) {
+				self.node.onclick = undef;
+				
+				if(e.target.nodeName == 'BUTTON') {
+					d.resolve(e.target.value);
+				}
+			};
 			
 			return d.promise;
 		}

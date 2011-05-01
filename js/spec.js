@@ -19,6 +19,7 @@ define({
 		create: 'controller/PiratescriptController',
 		properties: {
 			_codezView: { $ref: 'codezView' }
-		}
+		},
+		init: 'ready'
 	}
 });
