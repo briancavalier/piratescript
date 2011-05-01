@@ -2,10 +2,9 @@ define(
 [
 	'when',
 	'text!./CodezView.html',
-	'i18n!./nls/CodezView',
 	'cssx/css!./CodezView.css'
 ],
-function(when, template, strings) {
+function(when, template) {
 
 	function CodezView(node) {
 		this.node = node;
