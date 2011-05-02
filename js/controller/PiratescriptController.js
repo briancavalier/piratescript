@@ -53,9 +53,10 @@ function(when) {
 			found = this._checkScore();
 			self = this;
 			
-			when(this._wireContext).then(function(context) {
+			when(this._wireContext).then(function(wired) {
+				var context = wired.objects;
 				
-				context.objects.wire('results-spec').then(function(resultsContext) {
+				context.wire('results-spec').then(function(resultsContext) {
 					
 					resultsContext.resultsView.showResults({ total: self._turns, score: self._score, message: found.message });
 					self._appContainer.className = 'results-state';

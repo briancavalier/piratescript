@@ -1,10 +1,9 @@
 define({
 	// wire plugins
 	plugins: [
-		{ module: 'wire/debug' },
+		// { module: 'wire/debug' },
 		{ module: 'wire/dom' },
 		{ module: 'wire/sizzle' }
-		// { module: 'wire/dojo/dom' }
 	],
 	data: {
 		module: '../data/codez'
