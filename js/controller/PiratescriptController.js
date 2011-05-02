@@ -4,6 +4,7 @@ define(['when'], function(when) {
 	
 	function Controller() {
 		this._count = 0;
+		this._score = 0;
 	}
 	
 	Controller.prototype = {
@@ -17,14 +18,33 @@ define(['when'], function(when) {
 		
 		_reset: noop,
 		
+		_checkScore: function() {
+			var found, i;
+			
+			found = false;
+			i = this._thresholds.length-1;
+			
+			while(!found) {
+				var t = this._thresholds[i--];
+				if(t.score <= this._score) {
+					found = t;
+				}
+			}
+		
+			return found;
+		},
+		
 		_showResults: function() {
-			var self = this;
+			var found, self;
+			
+			found = this._checkScore();
+			self = this;
 			
 			when(this._wireContext).then(function(context) {
 				
 				context.objects.wire('results-spec').then(function(resultsContext) {
 					
-					resultsContext.resultsView.showResults({ total: 10, correct: 9 });
+					resultsContext.resultsView.showResults({ total: self._turns, score: found.score, message: found.message });
 					self._appContainer.className = 'results-state';
 					
 					self._reset = function() {
@@ -66,6 +86,8 @@ define(['when'], function(when) {
 		},
 		
 		_checkAnswer: function(codez, answer) {
+			// TODO: Really check the answer
+			this._score++;
 			alert(answer == codez.pirate ? "Arr, Matey!" : "Keelhaul that landlubber");
 		}
 	};

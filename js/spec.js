@@ -4,7 +4,14 @@ define({
 		{ module: 'wire/debug' },
 		{ module: 'wire/dojo/dom' }
 	],
-	turns: 2,
+	turns: 10,
+	scores: [
+		{ score: 0, message: "Keelhaul this landlubber!" },
+		{ score: 2, message: "Fit this scoundrel for a gibbet!" },
+		{ score: 5, message: "good" },
+		{ score: 7, message: "better" },
+		{ score: 10, message: "best" }
+	],
 	// View to show some codez
 	codezView: {
 		create: {
@@ -28,7 +35,8 @@ define({
 			_appContainer: { $ref: 'dom.query!.app-container', i: 0 },
 			_turns: { $ref: 'turns' },
 			_codezView: { $ref: 'codezView' },
-			_wireContext: { $ref: 'wire!context' }
+			_wireContext: { $ref: 'wire!context' },
+			_thresholds: { $ref: 'scores' }
 		},
 		init: 'ready'
 	}
