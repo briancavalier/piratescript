@@ -25,9 +25,12 @@ define(['when'], function(when) {
 				context.objects.wire('results-spec').then(function(resultsContext) {
 					
 					resultsContext.resultsView.showResults({ total: 10, correct: 9 });
+					self._appContainer.className = 'results-state';
 					
 					self._reset = function() {
-						resultsContext.destroy();
+						resultsContext.destroy().then(function() {
+							self._appContainer.className = '';							
+						});
 						// TODO: Change app state
 					};
 					
