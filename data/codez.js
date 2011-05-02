@@ -82,18 +82,6 @@ reason:
 pirateScript:
 "if (myvar === null) {\n\
 	doSomethingPiratey(myvar);\n\
-}\n\
-\n\
-or\n\
-\n\
-if ((myvar === null)) {\n\
-	doSomethingPiratey(myvar);\n\
-}\n\
-\n\
-or\n\
-\n\
-if (myvar === null || myvar === undefined) {\n\
-	doSomethingPiratey(myvar);\n\
 }",
 source: "???????"
 }
