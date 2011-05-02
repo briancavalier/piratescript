@@ -10,7 +10,7 @@ for (var i = 0, len = items.length; i < len; i++) !function (item) {\n\
 answer: "noob",
 reasonCode: "performance",
 reason:
-"js engines can't optimize the function within the loop since it's closure and/or parameters are constantly changing. Hoist and name the function like this:",
+"js engines can't optimize the function within the loop since it's closure and/or parameters are constantly changing. Hoist and name the function for best compilation.",
 pirateScript:
 "var items = [1, 2, 3, 4, 5];\n\
 function log (item) {\n\
@@ -28,7 +28,7 @@ noobScript:
 };",
 answer: "noob",
 reasonCode: "memory leak",
-reason: "A bug in IE 6-8 will leak memory when combining named function expressions with property or var declarations of the same name.  Hoist your function or use a different name:",
+reason: "A bug in IE 6-8 will leak memory when combining named function expressions with property or var declarations of the same name.  Hoist your function or use a different name to avoid the leaks.",
 pirateScript:
 "function myFunc (param) {\n\
 	doSomethingAwesome(param);\n\
@@ -78,7 +78,7 @@ noobScript:
 answer: "noob",
 reasonCode: "ambiguity",
 reason:
-"When comparing strictly to null, use ===.  Use extra parentheses (????) around the equality equation when you explicitly want a coerced test for null values.  The latter is handy when you wish to have a succinct way to compare against null and undefined.",
+"When comparing strictly to null, use ===.  Test for both <code>null</code> and <code>undefined</code> when you wish to compare against both.",
 pirateScript:
 "if (myvar === null) {\n\
 	doSomethingPiratey(myvar);\n\
