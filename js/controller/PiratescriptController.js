@@ -24,8 +24,9 @@ function(when) {
 			when(this._getCodez()).then(function(codez) {
 
 				// pick a question and randomize the answer's position
-				var data, which = (Math.random() * 2) >>> 0;
+				var data, which;
 				data = beget(codez[self.questionNum]);
+				which = data.which = (Math.random() * 2) >>> 0;
 				data.firstScript = which ? data.pirateScript : data.noobScript;
 				data.secondScript = !which ? data.pirateScript : data.noobScript;
 
