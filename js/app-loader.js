@@ -1,6 +1,6 @@
 define({
 	plugins: [
-		{ module: 'wire/debug' },
+		//{ module: 'wire/debug' },
 		{ module: 'wire/dom' },
 		{ module: 'wire/sizzle' }
 	],
