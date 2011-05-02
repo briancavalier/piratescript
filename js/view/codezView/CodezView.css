@@ -1,3 +1,22 @@
+@import url(../../../css/app.css);
+
 .codez-view {
-	
+}
+
+.codez-view .codez {
+	margin: 5px;
+	padding: 5px;
+}
+
+.codez-view .buttons {
+	float: right;
+	margin: 5px;
+    text-align: left;
+    width: 100px;
+}
+
+.codez-view pre {
+	margin: 0;
+	overflow: auto;
+	padding: 5px;
 }

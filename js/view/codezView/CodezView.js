@@ -11,11 +11,16 @@ function(when, template) {
 	function CodezView(node) {
 		this.node = node;
 		this.render();
-	};
+	}
 	
 	CodezView.prototype = {
+
 		render: function(map) {
-			this.node.innerHTML = template.replace(/\$\{(\w+)\}/, function(s, key) { 
+			var which = (Math.random() * 2) >>> 0;
+			map = beget(map);
+			map.firstScript = which ? map.pirateScript : map.noobScript;
+			map.secondScript = !which ? map.pirateScript : map.noobScript;
+			this.node.innerHTML = template.replace(/\$\{(\w+)\}/g, function(s, key) {
 				return map && map[key] !== undef ? map[key] : '';
 			});
 		},
@@ -23,7 +28,7 @@ function(when, template) {
 		showCodez: function(codez) {
 			var d, self;
 			
-			this.render({ codez: codez });
+			this.render(codez);
 			
 			d = when.Deferred();
 			self = this;
@@ -39,6 +44,15 @@ function(when, template) {
 			return d.promise;
 		}
 	};
+
+	function F () {}
+	function beget (o) {
+		var result;
+		F.prototype = o;
+		result = new F();
+		F.prototype = undef;
+		return result;
+	}
 
 	return CodezView;
 
