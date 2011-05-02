@@ -3,10 +3,11 @@ define(
 	'when',
 	'querySelectorAll',
 	'array',
+	'event',
 	'text!./CodezView.html',
 	'cssx/css!./CodezView.css'
 ],
-function(when, querySelectorAll, array, template) {
+function(when, querySelectorAll, array, event, template) {
 
 	var undef;
 
@@ -31,10 +32,10 @@ function(when, querySelectorAll, array, template) {
 			d = when.Deferred();
 			self = this;
 			
-			this.node.onclick = function(e) {
+			function onclick (e) {
 				
 				if(/\bproceed-button\b/.test(e.target.className)) {
-					self.node.onclick = undef;
+					event.removeEventListener(self.node, 'click', onclick, false);
 					d.resolve();
 				}
 				else if(/\bpirate-button\b/.test(e.target.className)) {
@@ -44,7 +45,9 @@ function(when, querySelectorAll, array, template) {
 					});
 					d.progress(e.target.value);
 				}
-			};
+			}
+
+			event.addEventListener(this.node, 'click', onclick, false);
 			
 			return d.promise;
 		},
