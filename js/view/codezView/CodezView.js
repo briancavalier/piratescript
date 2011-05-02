@@ -2,10 +2,11 @@ define(
 [
 	'when',
 	'querySelectorAll',
+	'array',
 	'text!./CodezView.html',
 	'cssx/css!./CodezView.css'
 ],
-function(when, querySelectorAll, template) {
+function(when, querySelectorAll, array, template) {
 
 	var undef;
 
@@ -17,10 +18,6 @@ function(when, querySelectorAll, template) {
 	CodezView.prototype = {
 
 		render: function(map) {
-			var which = (Math.random() * 2) >>> 0;
-			map = beget(map);
-			map.firstScript = which ? map.pirateScript : map.noobScript;
-			map.secondScript = !which ? map.pirateScript : map.noobScript;
 			this.node.innerHTML = template.replace(/\$\{(\w+)\}/g, function(s, key) {
 				return map && map[key] !== undef ? map[key] : '';
 			});
@@ -35,31 +32,34 @@ function(when, querySelectorAll, template) {
 			self = this;
 			
 			this.node.onclick = function(e) {
-				self.node.onclick = undef;
 				
 				if(/\bproceed-button\b/.test(e.target.className)) {
-					d.resolve(e.target.value);
+					self.node.onclick = undef;
+					d.resolve();
 				}
 				else if(/\bpirate-button\b/.test(e.target.className)) {
-					// change state
-					var view = querySelectorAll('.codez-view', self.node)[0];
-					view.className += ' answered';
-					// TODO: record score
+					var pirateButtons = querySelectorAll('.pirate-button', self.node);
+					array.forEach(pirateButtons, function (button) {
+						button.disabled = true;
+					});
+					d.progress(e.target.value);
 				}
 			};
 			
 			return d.promise;
+		},
+
+		setIsCorrect: function (value) {
+			var node;
+
+			node = querySelectorAll('.codez-view', this.node)[0];
+
+			// change state
+			node.className += ' answered';
+
+			node.className += ' ' + (value ? 'correct' : 'incorrect');
 		}
 	};
-
-	function F () {}
-	function beget (o) {
-		var result;
-		F.prototype = o;
-		result = new F();
-		F.prototype = undef;
-		return result;
-	}
 
 	return CodezView;
 

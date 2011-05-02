@@ -21,10 +21,25 @@
 	padding: 5px;
 }
 
-.codez-view .reasonz {
+.codez-view .reasonz,
+.codez-view .proceed {
 	display: none;
 }
 
-.codez-view.answered .reasonz {
+.codez-view.answered .reasonz,
+.codez-view.answered .proceed {
 	display: block;
+}
+
+.codez-view .correct-text,
+.codez-view .incorrect-text {
+	display: none;
+}
+
+.codez-view.correct .correct-text {
+	display: inline;
+}
+
+.codez-view.incorrect .incorrect-text {
+	display: inline;
 }
