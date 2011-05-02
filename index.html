@@ -14,7 +14,8 @@
 				paths: {
 					"wire": "./wire",
 					"domReady": "curl/domReady",
-					"css": "cssx/css"
+					"css": "cssx/css",
+					"querySelectorAll": "sizzle"
 				}
 			};
 
@@ -24,7 +25,7 @@
 	<script type="text/javascript" src="js/curl.js"></script>
 	
 	<script type="text/javascript">
-		require(['wire!spec']);
+		require(['wire!app-loader']);
 	</script>
 </head>
 
