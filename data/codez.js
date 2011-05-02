@@ -10,7 +10,7 @@ for (var i = 0, len = items.length; i < len; i++) !function (item) {\n\
 answer: "noob",
 reasonCode: "performance",
 reason:
-"js engines can't optimize the function within the loop since it's closure and/or parameters are constantly changing. Hoist and name the function for best compilation.",
+"js engines can't optimize the function within the loop since a new function instance is created each iteration. Hoist and name the function for best performance.",
 pirateScript:
 "var items = [1, 2, 3, 4, 5];\n\
 function log (item) {\n\
