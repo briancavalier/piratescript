@@ -4,8 +4,9 @@
 
 .heading-view .header-image {
 	display: inline-block;
-	height: 100px;
+	height: 1em;
 	margin: 10px;
+	padding-top: 100px;
 	width: 100px;
 }
 
