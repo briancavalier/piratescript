@@ -27,6 +27,13 @@ h1, h2, h3, h4, h5, h6, th, td, caption { font-weight:normal; }
 
 img { border: 0; }
 
+/* Game CSS */
+
 p {
 	margin: 0.5em 0;
+}
+
+.results-state .codez-container,
+.results-state .score-container {
+	display: none;
 }

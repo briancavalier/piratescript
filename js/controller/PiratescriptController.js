@@ -7,7 +7,12 @@ function(when) {
 
 	var undef;
 	
-	function Controller() {}
+	function noop() {}
+	
+	function Controller() {
+		this._count = 0;
+		this._score = 0;
+	}
 	
 	Controller.prototype = {
 
@@ -17,6 +22,55 @@ function(when) {
 
 		ready: function() {
 			this._showNextCodez();
+		},
+		
+		reset: function() {
+			this._reset();
+		},
+		
+		_reset: noop,
+		
+		_checkScore: function() {
+			var found, i, correct;
+			
+			found = false;
+			i = this._thresholds.length-1;
+			correct = this._score / this._turns;
+			
+			while(!found) {
+				var t = this._thresholds[i--];
+				if(t.score <= correct) {
+					found = t;
+				}
+			}
+		
+			return found;
+		},
+		
+		_showResults: function() {
+			var found, self;
+			
+			found = this._checkScore();
+			self = this;
+			
+			when(this._wireContext).then(function(context) {
+				
+				context.objects.wire('results-spec').then(function(resultsContext) {
+					
+					resultsContext.resultsView.showResults({ total: self._turns, score: self._score, message: found.message });
+					self._appContainer.className = 'results-state';
+					
+					self._reset = function() {
+						resultsContext.destroy().then(function() {
+							self._appContainer.className = '';
+							self._score = 0;
+							self.ready();							
+						});
+						// TODO: Change app state
+					};
+					
+				});
+			});
 		},
 		
 		_showNextCodez: function() {
@@ -30,7 +84,7 @@ function(when) {
 				data.firstScript = which ? data.pirateScript : data.noobScript;
 				data.secondScript = !which ? data.pirateScript : data.noobScript;
 
-
+				self._count++;
 				var promise = self._codezView.showCodez(data);
 
 				self.questionNum = (self.questionNum + 1) % self.data.length;
@@ -50,7 +104,11 @@ function(when) {
 				}
 
 				function next () {
-					self._showNextCodez();
+					if(self._count < self._turns) {
+						self._showNextCodez();
+					} else {
+						self._showResults();
+					}
 				}
 
 				promise.then(next, null, check);
@@ -63,7 +121,9 @@ function(when) {
 		},
 		
 		_checkAnswer: function(data, answer) {
-			return data.which == answer;
+			var correct = data.which == answer;
+			if(correct) this._score++;
+			return correct;
 		}
 	};
 	

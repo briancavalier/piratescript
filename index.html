@@ -9,14 +9,22 @@
 	
 	<script type="text/javascript">
 		(function(global) {
+			var baseUrl = 'js';
+			
+			global.djConfig = {
+				baseUrl: baseUrl
+			};
+
 			global.require = {
-				baseUrl: "js",
+				baseUrl: baseUrl,
+				pluginPath: 'curl/plugin',
 				paths: {
 					"wire": "./wire",
 					"domReady": "curl/domReady",
 					"css": "cssx/css",
 					"querySelectorAll": "sizzle",
-					"array": "arrr/array"
+					"array": "arrr/array",
+					"render": "view/render"
 				}
 			};
 
@@ -31,10 +39,12 @@
 </head>
 
 <body>
-	<div>
-		<div id="heading-view"></div>
-		<div id="codez-view"></div>
-		<div id="score-view"></div>
+	
+	<div class='app-container'>
+		<div class="heading-container"></div>
+		<div class="codez-container"></div>
+		<div class="score-container"></div>
+		<div class="results-container"></div>
 	</div>
 </body>
 </html>

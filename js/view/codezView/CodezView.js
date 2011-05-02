@@ -4,10 +4,11 @@ define(
 	'querySelectorAll',
 	'array',
 	'event',
+	'render',
 	'text!./CodezView.html',
 	'cssx/css!./CodezView.css'
 ],
-function(when, querySelectorAll, array, event, template) {
+function(when, querySelectorAll, array, event, render, template) {
 
 	var undef;
 
@@ -19,9 +20,7 @@ function(when, querySelectorAll, array, event, template) {
 	CodezView.prototype = {
 
 		render: function(map) {
-			this.node.innerHTML = template.replace(/\$\{(\w+)\}/g, function(s, key) {
-				return map && map[key] !== undef ? map[key] : '';
-			});
+			this.node.innerHTML = render(template, map);
 		},
 		
 		showCodez: function(codez) {
