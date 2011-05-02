@@ -20,3 +20,11 @@
 	overflow: auto;
 	padding: 5px;
 }
+
+.codez-view .reasonz {
+	display: none;
+}
+
+.codez-view.answered .reasonz {
+	display: block;
+}

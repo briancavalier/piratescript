@@ -1,10 +1,11 @@
 define(
 [
 	'when',
+	'querySelectorAll',
 	'text!./CodezView.html',
 	'cssx/css!./CodezView.css'
 ],
-function(when, template) {
+function(when, querySelectorAll, template) {
 
 	var undef;
 
@@ -36,8 +37,14 @@ function(when, template) {
 			this.node.onclick = function(e) {
 				self.node.onclick = undef;
 				
-				if(e.target.nodeName == 'BUTTON') {
+				if(/\bproceed-button\b/.test(e.target.className)) {
 					d.resolve(e.target.value);
+				}
+				else if(/\bpirate-button\b/.test(e.target.className)) {
+					// change state
+					var view = querySelectorAll('.codez-view', self.node)[0];
+					view.className += ' answered';
+					// TODO: record score
 				}
 			};
 			
