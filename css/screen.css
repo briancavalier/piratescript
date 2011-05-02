@@ -7,6 +7,10 @@ html, body, div, form, fieldset, legend, label
 	padding: 0;	
 }
 
+html, body {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
 table
 {
 	border-collapse: collapse;
