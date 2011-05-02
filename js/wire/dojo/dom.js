@@ -50,7 +50,7 @@ define(['dojo'], function(dojo) {
 			return {
 				resolvers: {
 					'dom.query': resolveQuery
-				},
+				}
 				// aspects: {
 				// 	unload: {
 				// 		initialized: unloadAspect
