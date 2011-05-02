@@ -9,12 +9,31 @@
 	
 	<script type="text/javascript">
 		(function(global) {
+			var baseUrl = 'js';
+			
+			global.djConfig = {
+				baseUrl: baseUrl
+			};
+
 			global.require = {
-				baseUrl: "js",
+				baseUrl: baseUrl,
+				pluginPath: 'curl/plugin',
 				paths: {
-					"wire": "./wire",
-					"domReady": "curl/domReady"
-				}
+					'wire': './wire',
+					domReady: 'curl/domReady'
+				},
+				packages: [
+					{
+						name: 'dojo',
+						lib: '.',
+						main: './lib/main-browser'
+					},
+					{
+						name: 'dijit',
+						lib: '.',
+						main: './lib/main'
+					}
+				]
 			};
 
 		})(window);
@@ -31,6 +50,7 @@
 	<div>
 		<div id="codez-view"></div>
 		<div id="score-view"></div>
+		<div id="results-view"></div>
 	</div>
 </body>
 </html>
