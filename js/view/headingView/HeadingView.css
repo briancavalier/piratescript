@@ -19,3 +19,7 @@
 	background-image: url(assets/noob-image-100x100.png);
 	background-repeat: no-repeat;
 }
+
+.results-state .heading-view p {
+	display: none;
+}

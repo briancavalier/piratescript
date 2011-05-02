@@ -25,7 +25,19 @@
 					"querySelectorAll": "sizzle",
 					"array": "arrr/array",
 					"render": "view/render"
-				}
+				},
+				packages: [
+					{
+						name: 'dojo',
+						lib: '.',
+						main: './lib/main-browser'
+					},
+					{
+						name: 'dijit',
+						lib: '.',
+						main: './lib/main'
+					}
+				]
 			};
 
 		})(window);

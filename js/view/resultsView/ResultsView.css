@@ -1,5 +1,18 @@
-@import url(base.css);
-/* -----------------------------------------------------
- * Copyright (c) 2011, Your Company, Inc. All rights reserved.
- * =ResultsView
- */
+.results-view {
+	width: 60%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+.results-view h2 {
+	font-size: 5em;
+	font-style: bold;
+}
+
+.results-view h3 {
+	font-size: 3em;
+}
+
+.results-view em {
+	font-style: bold;
+}
