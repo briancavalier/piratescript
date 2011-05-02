@@ -1,0 +1,18 @@
+.heading-view {
+	text-align: center;
+}
+
+.heading-view .header-image {
+	display: inline-block;
+	height: 100px;
+	margin: 10px;
+	width: 100px;
+}
+
+.heading-view .pirate-image {
+	background: url(assets/pirate-image-100x100.png) no-repeat;
+}
+
+.heading-view .noob-image {
+	background: url(assets/noob-image-100x100.png) no-repeat;
+}
