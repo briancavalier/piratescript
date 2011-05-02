@@ -1,0 +1,22 @@
+@import url(screen.css);
+
+.box {
+	background-color: #eee;
+	border: 1px solid #555;
+	border-radius: 5px;
+}
+
+pre {
+	background-color: #ffe;
+	/*border: 1px solid #fff;*/
+	/*border-radius: 3px;*/
+	font-size: 16px;
+	font-weight: bold;
+}
+
+button {
+	background-color: #abacab;
+	border: 1px solid #555;
+	border-radius: 5px;
+	font-size: 20px;
+}
