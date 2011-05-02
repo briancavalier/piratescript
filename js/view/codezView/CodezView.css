@@ -24,6 +24,8 @@
 .codez-view .reasonz,
 .codez-view .proceed {
 	display: none;
+	float: right;
+	padding: 10px
 }
 
 .codez-view.answered .reasonz,
@@ -34,12 +36,15 @@
 .codez-view .correct-text,
 .codez-view .incorrect-text {
 	display: none;
+	font-size: 24px;
 }
 
 .codez-view.correct .correct-text {
+	color: green;
 	display: inline;
 }
 
 .codez-view.incorrect .incorrect-text {
+	color: red;
 	display: inline;
 }

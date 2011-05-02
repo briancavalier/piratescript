@@ -5,15 +5,17 @@
 .heading-view .header-image {
 	display: inline-block;
 	height: 1em;
-	margin: 10px;
+	margin: 10px 30px;
 	padding-top: 100px;
 	width: 100px;
 }
 
 .heading-view .pirate-image {
-	background: url(assets/pirate-image-100x100.png) no-repeat;
+	background-image: url(assets/pirate-image-100x100.png);
+	background-repeat: no-repeat;
 }
 
 .heading-view .noob-image {
-	background: url(assets/noob-image-100x100.png) no-repeat;
+	background-image: url(assets/noob-image-100x100.png);
+	background-repeat: no-repeat;
 }

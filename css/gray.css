@@ -1,22 +1,29 @@
 @import url(screen.css);
 
 .box {
-	background-color: #eee;
+	background-color: #f7f7f7;
 	border: 1px solid #555;
 	border-radius: 5px;
 }
 
 pre {
-	background-color: #ffe;
+	background-color: #fffff7;
 	/*border: 1px solid #fff;*/
 	/*border-radius: 3px;*/
-	font-size: 16px;
+	font-size: 14px;
 	font-weight: bold;
 }
 
 button {
-	background-color: #abacab;
+	background-color: #31f;
+	color: #fff;
 	border: 1px solid #555;
 	border-radius: 5px;
 	font-size: 20px;
+	cursor: pointer;
 }
+
+button:disabled {
+	cursor: default;
+}
+
