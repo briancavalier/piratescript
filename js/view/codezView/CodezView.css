@@ -16,6 +16,7 @@
 }
 
 .codez-view pre {
+	background-color: transparent;
 	margin: 0;
 	overflow: auto;
 	padding: 5px;
