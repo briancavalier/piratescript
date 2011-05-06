@@ -9,10 +9,7 @@ function(when) {
 	
 	function noop() {}
 	
-	function Controller() {
-		this._count = 0;
-		this._score = 0;
-	}
+	function Controller() {}
 	
 	Controller.prototype = {
 
@@ -21,6 +18,8 @@ function(when) {
 		questionNum: 0,
 
 		ready: function() {
+			this._count = 0;
+			this._score = 0;
 			this._showNextCodez();
 		},
 		
@@ -53,8 +52,8 @@ function(when) {
 			found = this._checkScore();
 			self = this;
 			
-			when(this._wireContext).then(function(wired) {
-				var context = wired.objects;
+			when(this._wireContext).then(function(context) {
+				// var context = wired.objects;
 				
 				context.wire('results-spec').then(function(resultsContext) {
 					
@@ -64,7 +63,6 @@ function(when) {
 					self._reset = function() {
 						resultsContext.destroy().then(function() {
 							self._appContainer.className = '';
-							self._score = 0;
 							self.ready();							
 						});
 						// TODO: Change app state

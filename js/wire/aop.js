@@ -9,11 +9,29 @@
 */
 define(['require'], function(require) {
 
-	function decorateAspect(decorators, promise, aspect, wire) {
+	var ap, obj, tos;
+	
+	ap = Array.prototype;
+	obj = {};
+	tos = Object.prototype.toString;
+
+	function isArray(it) {
+		return tos.call(it) == '[object Array]';
+	}
+
+	function argsToArray(a) {
+		return ap.slice.call(a);
+	}
+
+	//
+	// Decoration
+	//
+
+	function decorateAspect(decorators, promise, facet, wire) {
 		var target, options, promises;
 
-		target = aspect.target;
-		options = aspect.options;
+		target = facet.target;
+		options = facet.options;
 		promises = [];
 
 		for(var d in options) {
@@ -55,8 +73,141 @@ define(['require'], function(require) {
 		Decorator.apply(null, args);
 	}
 
-	function adviceAspect(promise, aspect, wire) {
+	//
+	// Introductions
+	//
+	function introduce(target, src) {
+		var name, s;
+
+		for(name in src) {
+			s = src[name];
+			if(!(name in target) || (target[name] !== s && (!(name in obj) || obj[name] !== s))) {
+				target[name] = s;
+			}
+		}
+	}
+
+	function introduceAspect(introductions, promise, facet, wire) {
+		var target, intros, intro, i, promises;
+		
+		target = facet.target;
+		intros = facet.options;
+		
+		if(!isArray(intros)) intros = [intros];
+		i = intros.length;
+
+		promises = [];
+
+		while((intro = intros[--i])) {
+
+			(function(d, t, intro) {
+				promises.push(d);
+
+				require([intro], function(resolvedIntro) {
+					introduce(target, resolvedIntro);
+					d.resolve();
+				});
+				
+			})(wire.deferred(), target, introductions[intro]||intro);
+		}
+
+		wire.whenAll(promises).then(function() {
+			promise.resolve();
+		});
+	}
+
+	//
+	// Advice
+	//
+
+	function adviceAspect(promise, facet, wire) {
 		promise.resolve();
+	}
+
+	function callAdvice(advices, target, arguments) {
+		var i, advice;
+
+		i = advices.length;
+
+		while((advice = advices[--i])) {
+			advice.apply(target, arguments);
+		}
+	}
+
+	function makeAdviceList(advices, order) {
+		return function(advice) {
+			order.call(advices, advice);
+		};
+	}
+
+	function addAdvice(type, target, func, adviceFunc) {
+		var advised = target[func];
+		
+		if(!advised._advisor) {
+			var args, before, after, around, advisor, interceptor;
+
+			args = argsToArray(arguments);
+			before = [];
+			after  = [];
+			afterReturning  = [];
+			afterThrowing   = [];
+			around = {};
+
+			// Intercept calls to the original function, and invoke
+			// all currently registered before, around, and after advices
+			interceptor = target[func] = function() {
+				var targetArgs, result, afterType;
+
+				targetArgs = argsToArray(arguments);
+				afterType = afterReturning;
+
+				// Befores
+				callAdvice(before, this, targetArgs);
+				
+				// Call around if registered.  If not call original
+				try {
+					result = (around.advice||advised).apply(this, targetArgs);
+
+				} catch(e) {
+					result = e;
+					afterType = afterThrowing;
+
+				}
+
+				callAdvice(afterType, this, [result]);					
+
+				// TODO: Is it correct to pass original arguments here or
+				// return result?  What if exception occurred?  Should result
+				// then be the exception?
+				callAdvice(after, this, targetArgs);
+
+				return result;
+			};
+
+			interceptor._advisor = {
+				before: makeAdviceList(before, ap.unshift),
+				after:  makeAdviceList(after, ap.push),
+				afterReturning: makeAdviceList(afterReturning, ap.push),
+				afterThrowing:  makeAdviceList(afterThrowing, ap.push),
+				around: function(f) {
+					around.advice = function() {
+						var args, self;
+						args = argsToArray(arguments);
+						self = this;
+
+						function proceed() {
+							return advised.apply(self, args);
+						}
+
+						f.call(self, { args: args, target: self, proceed: proceed });
+					};
+				}
+			};
+		}
+
+		advised._advisor[type](adviceFunc);
+
+		return advised._advisor;
 	}
 
 	return {
@@ -75,16 +226,24 @@ define(['require'], function(require) {
 					receive progress events for objects being destroyed.
 		*/
 		wire$plugin: function(ready, destroyed, options) {
-			var decorators = options.decorators||{};
+			var decorators, introductions;
+			
+			decorators = options.decorators||{};
+			introductions = options.introductions||{};
 
 			return {
-				aspects: {
+				facets: {
 					advice: {
-						configured: adviceAspect
+						configure: adviceAspect
 					},
 					decorate: {
-						configured: function(promise, aspect, wire) {
-							decorateAspect(decorators, promise, aspect, wire);
+						configure: function(promise, facet, wire) {
+							decorateAspect(decorators, promise, facet, wire);
+						}
+					},
+					introduce: {
+						configure: function(promise, facet, wire) {
+							introduceAspect(introductions, promise, facet, wire);
 						}
 					}
 				}
