@@ -5,48 +5,10 @@
 	
 	<title>Piratescript or Noobscript?</title>
 	
-	<!--<link rel="stylesheet" href="css/screen.css" type="text/css" media="screen" charset="utf-8">-->
+	<script src="js/config.js"></script>
 	
-	<script type="text/javascript">
-		(function(global) {
-			var baseUrl = 'js';
-			
-			global.djConfig = {
-				baseUrl: baseUrl
-			};
-
-			global.require = {
-				baseUrl: baseUrl,
-				pluginPath: 'curl/plugin',
-				paths: {
-					"wire": "./wire",
-					"domReady": "curl/domReady",
-					"css": "cssx/css",
-					"querySelectorAll": "sizzle",
-					"array": "arrr/array",
-					"render": "view/render"
-				},
-				packages: [
-					{
-						name: 'dojo',
-						lib: '.',
-						main: './lib/main-browser'
-					},
-					{
-						name: 'dijit',
-						lib: '.',
-						main: './lib/main'
-					}
-				]
-			};
-
-		})(window);
-	</script>
-	
-	<script type="text/javascript" src="js/curl.js"></script>
-	
-	<script type="text/javascript">
-		require(['wire!app-loader']);
+	<script>
+		curl(['curl/src/curl/dojo16Compat', 'wire!app-loader']);
 	</script>
 </head>
 

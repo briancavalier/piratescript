@@ -5,8 +5,11 @@ define({
 		{ module: 'wire/dom' },
 		{ module: 'wire/sizzle' }
 	],
+	css: [
+		{ module: 'css!styles/gray.css' }
+	],
 	data: {
-		module: '../data/codez'
+		module: 'data/codez'
 	},
 	turns: 2,
 	scores: [

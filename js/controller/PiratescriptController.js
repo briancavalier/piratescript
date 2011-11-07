@@ -1,9 +1,4 @@
-define(
-[
-	'when',
-	'css!../css/gray.css'
-],
-function(when) {
+define(['when'], function(when) {
 
 	var undef;
 	
@@ -74,7 +69,7 @@ function(when) {
 		
 		_showNextCodez: function() {
 			var self = this;
-			when(this._getCodez()).then(function(codez) {
+			when(this._getCodez(), function(codez) {
 
 				// pick a question and randomize the answer's position
 				var data, which;

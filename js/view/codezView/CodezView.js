@@ -5,8 +5,8 @@ define(
 	'array',
 	'event',
 	'render',
-	'text!./CodezView.html',
-	'cssx/css!./CodezView.css'
+	'text!./codezView/CodezView.html',
+	'css!./codezView/CodezView.css'
 ],
 function(when, querySelectorAll, array, event, render, template) {
 
@@ -28,7 +28,7 @@ function(when, querySelectorAll, array, event, render, template) {
 			
 			this.render(codez);
 			
-			d = when.Deferred();
+			d = when.defer();
 			self = this;
 			
 			function onclick (e) {

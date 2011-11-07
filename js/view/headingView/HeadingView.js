@@ -1,7 +1,7 @@
 define(
 [
-	'text!./HeadingView.html',
-	'cssx/css!./HeadingView.css'
+	'text!./headingView/HeadingView.html',
+	'css!./headingView/HeadingView.css'
 ],
 function (template) {
 
