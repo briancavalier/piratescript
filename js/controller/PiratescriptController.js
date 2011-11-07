@@ -41,6 +41,8 @@ define(['when'], function(when) {
 			return found;
 		},
 		
+		_showResultsView: function(results) {},
+		
 		_showResults: function() {
 			var found, self;
 			
@@ -50,14 +52,11 @@ define(['when'], function(when) {
 			when(this._wireContext).then(function(context) {
 				// var context = wired.objects;
 				
-				context.wire('results-spec').then(function(resultsContext) {
-					
-					resultsContext.resultsView.showResults({ total: self._turns, score: self._score, message: found.message });
-					self._appContainer.className = 'results-state';
+				self._showResultsView({ results: { total: self._turns, score: self._score, message: found.message }})
+					.then(function(resultsContext) {
 					
 					self._reset = function() {
 						resultsContext.destroy().then(function() {
-							self._appContainer.className = '';
 							self.ready();							
 						});
 						// TODO: Change app state

@@ -1,7 +1,7 @@
 define({
 	plugins: [
 		{ module: 'wire/debug' },
-		{ module: 'wire/dom' },
+		{ module: 'wire/dom', classes: { ready: 'results-state' } },
 		{ module: 'wire/dojo/events' }
 	],
 	resultsView: {
@@ -13,6 +13,9 @@ define({
 			onPlayAgain: {
 				controller: 'reset'
 			}
+		},
+		init: {
+			showResults: { $ref: 'results' }
 		},
 		destroy: 'destroy'
 	}

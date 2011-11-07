@@ -14,9 +14,9 @@ define({
 	turns: 2,
 	scores: [
 		{ score: 0, message: "Keelhaul this landlubber!" },
-		{ score: .25, message: "Fit this scoundrel for a gibbet!" },
-		{ score: .5, message: "Arr, Matey!" },
-		{ score: .75, message: "Shiver me timbers! Ye be a Pirate!" },
+		{ score: 0.25, message: "Fit this scoundrel for a gibbet!" },
+		{ score: 0.5, message: "Arr, Matey!" },
+		{ score: 0.75, message: "Shiver me timbers! Ye be a Pirate!" },
 		{ score: 1, message: "Ye be Blackbeard himself!" }
 	],
 	// View to show some codez
@@ -39,11 +39,11 @@ define({
 	controller: {
 		create: 'controller/PiratescriptController',
 		properties: {
-			_codezView: { $ref: 'codezView' },
-			data: { $ref: 'data' },
 			_appContainer: { $ref: 'dom.query!.app-container', i: 0 },
+			_showResultsView: { wire: { spec: 'results-spec', defer: true } },
+			_codezView: { $ref: 'codezView' },
 			_turns: { $ref: 'turns' },
-			_wireContext: { $ref: 'wire!context' },
+			data: { $ref: 'data' },
 			_thresholds: { $ref: 'scores' }
 		},
 		init: 'ready'
