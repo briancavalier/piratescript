@@ -1,0 +1,9 @@
+[submodule "js/wire"]
+	path = js/wire
+	url = git://github.com/briancavalier/wire.git
+[submodule "js/when"]
+	path = js/when
+	url = git://github.com/briancavalier/when.js.git
+[submodule "js/curl"]
+	path = js/curl
+	url = git://github.com/unscriptable/curl.git
