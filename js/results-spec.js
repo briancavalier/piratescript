@@ -1,6 +1,6 @@
 define({
 	plugins: [
-		{ module: 'wire/debug' },
+		// { module: 'wire/debug' },
 		{ module: 'wire/dom', classes: { ready: 'results-state' } },
 		{ module: 'wire/dojo/events' }
 	],
