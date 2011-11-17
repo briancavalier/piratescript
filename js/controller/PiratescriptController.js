@@ -44,31 +44,37 @@ define(['when'], function(when) {
 		_showResultsView: function(results) {},
 		
 		_showResults: function() {
-			var found, self;
+			var found, self, results;
 			
 			found = this._checkScore();
 			self = this;
 			
-			when(this._wireContext).then(function(context) {
-				// var context = wired.objects;
+			results = {
+				results: {
+					total: self._turns,
+					score: self._score,
+					message: found.message
+				}
+			};
+			
+			// Call the injected _showResultsView function, which will
+			// wire a child context, and also inject results into that
+			// child
+			this._showResultsView(results)
+				.then(function(resultsContext) {
 				
-				self._showResultsView({ results: { total: self._turns, score: self._score, message: found.message }})
-					.then(function(resultsContext) {
-					
-					self._reset = function() {
-						resultsContext.destroy().then(function() {
-							self.ready();							
-						});
-						// TODO: Change app state
-					};
-					
-				});
+				self._reset = function() {
+					resultsContext.destroy().then(function() {
+						self.ready();							
+					});
+				};
+				
 			});
 		},
 		
 		_showNextCodez: function() {
 			var self = this;
-			when(this._getCodez(), function(codez) {
+			when(this._codez, function(codez) {
 
 				// pick a question and randomize the answer's position
 				var data, which;
@@ -80,7 +86,7 @@ define(['when'], function(when) {
 				self._count++;
 				var promise = self._codezView.showCodez(data);
 
-				self.questionNum = (self.questionNum + 1) % self.data.length;
+				self.questionNum = (self.questionNum + 1) % codez.length;
 
 				// When the view resolves the promise, check the answer and display
 				// the next one.  Probably want a counter here so we can show a final
@@ -107,10 +113,6 @@ define(['when'], function(when) {
 				promise.then(next, null, check);
 
 			});
-		},
-		
-		_getCodez: function() {
-			return this.data;
 		},
 		
 		_checkAnswer: function(data, answer) {

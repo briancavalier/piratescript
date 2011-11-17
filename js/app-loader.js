@@ -3,15 +3,26 @@ define({
 	plugins: [
 		// { module: 'wire/debug' },
 		{ module: 'wire/dom' },
-		{ module: 'wire/sizzle' }
+		{ module: 'wire/dojo/store' },
+		// Use dojo.query as our dom.query! resolver
+		{ module: 'wire/dojo/dom' }
+		// Or we could use jquery
+		// { module: 'wire/jquery/dom' }
+		// Or sizzle!
+		// { module: 'wire/sizzle' }
 	],
 	css: [
 		{ module: 'css!styles/gray.css' }
 	],
-	data: {
-		module: 'data/codez'
-	},
+	// Easy dojo datastore creation via resource! ref resolver
+	// provided by the wire/dojo/store plugin
+	questionData: { $ref: 'resource!data/codez.json', query: {} },
+	// Or alternately, we can just use AMD to pull in JSONP data!
+	// questionData: { module: 'data/codez' },
 	turns: 2,
+	// Could easily pull this scoring reference data from a datastore
+	// or JSONP, or simply use a plain old array, which works just fine
+	// in wire.js, too.
 	scores: [
 		{ score: 0, message: "Keelhaul this landlubber!" },
 		{ score: 0.25, message: "Fit this scoundrel for a gibbet!" },
@@ -39,12 +50,15 @@ define({
 	controller: {
 		create: 'controller/PiratescriptController',
 		properties: {
-			_appContainer: { $ref: 'dom.query!.app-container', i: 0 },
-			_showResultsView: { wire: { spec: 'results-spec', defer: true } },
 			_codezView: { $ref: 'codezView' },
 			_turns: { $ref: 'turns' },
-			data: { $ref: 'data' },
-			_thresholds: { $ref: 'scores' }
+			_codez: { $ref: 'questionData' },
+			_thresholds: { $ref: 'scores' },
+			//
+			// Inception
+			// Inject a function that, when called, will wire() result-spec!
+			// 
+			_showResultsView: { wire: { spec: 'results-spec', defer: true } }
 		},
 		init: 'ready'
 	}
