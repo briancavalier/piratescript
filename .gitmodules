@@ -7,3 +7,6 @@
 [submodule "js/curl"]
 	path = js/curl
 	url = git://github.com/unscriptable/curl.git
+[submodule "js/aop"]
+	path = js/aop
+	url = git://github.com/briancavalier/aop.js.git

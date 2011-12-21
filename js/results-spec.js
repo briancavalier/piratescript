@@ -1,6 +1,7 @@
 define({
 	plugins: [
-		// { module: 'wire/debug' },
+		// Enable wire debug and app tracing to see some magic
+		// { module: 'wire/debug', trace: true },
 		{ module: 'wire/dom', classes: { ready: 'results-state' } },
 		{ module: 'wire/dojo/events' }
 	],

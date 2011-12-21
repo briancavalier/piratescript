@@ -1,7 +1,8 @@
 define({
 	// wire plugins
 	plugins: [
-		// { module: 'wire/debug' },
+		// Enable wire debug and app tracing to see some magic
+		//{ module: 'wire/debug', trace: true },
 		{ module: 'wire/dom' },
 		{ module: 'wire/dojo/store' },
 		// Use dojo.query as our dom.query! resolver
