@@ -1,8 +1,8 @@
 define(
 [
 	'view/render',
-	'text!./resultsView/ResultsView.html',
-	'css!./resultsView/ResultsView.css'
+	'text!./ResultsView.html',
+	'css!./ResultsView.css'
 ],
 function(render, template) {
 

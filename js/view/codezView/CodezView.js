@@ -2,15 +2,13 @@ define(
 [
 	'when',
 	'querySelectorAll',
-	'array',
 	'event',
 	'render',
-	'text!./codezView/CodezView.html',
-	'css!./codezView/CodezView.css'
+	'text!./CodezView.html',
+	'poly!poly/array',
+	'css!./CodezView.css'
 ],
-function(when, querySelectorAll, array, event, render, template) {
-
-	var undef;
+function(when, querySelectorAll, event, render, template) {
 
 	function CodezView(node) {
 		this.node = node;
@@ -39,7 +37,7 @@ function(when, querySelectorAll, array, event, render, template) {
 				}
 				else if(/\bpirate-button\b/.test(e.target.className)) {
 					var pirateButtons = querySelectorAll('.pirate-button', self.node);
-					array.forEach(pirateButtons, function (button) {
+					pirateButtons.forEach(function (button) {
 						button.disabled = true;
 					});
 					d.progress(e.target.value);

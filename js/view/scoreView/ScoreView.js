@@ -1,7 +1,7 @@
 define(
 [
 	'text!./ScoreView.html',
-	'cssx/css!./ScoreView.css'
+	'css!./ScoreView.css'
 ],
 function(template) {
 

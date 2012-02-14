@@ -41,7 +41,7 @@ define(['when'], function(when) {
 			return found;
 		},
 		
-		_showResultsView: function(results) {},
+		_showResultsView: function(/*results*/) {},
 		
 		_showResults: function() {
 			var found, self, results;
@@ -93,9 +93,7 @@ define(['when'], function(when) {
 				// score screen after N questions.
 
 				function check (answer) {
-					var node, correct;
-
-					correct = self._checkAnswer(data, answer);
+					var correct = self._checkAnswer(data, answer);
 
 					self._codezView.setIsCorrect(correct);
 					

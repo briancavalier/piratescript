@@ -2,15 +2,16 @@ define({
 	// wire plugins
 	plugins: [
 		// Enable wire debug and app tracing to see some magic
-		//{ module: 'wire/debug', trace: true },
-		{ module: 'wire/dom' },
+		{ module: 'wire/debug', trace: true },
 		{ module: 'wire/dojo/store' },
-		// Use dojo.query as our dom.query! resolver
-		{ module: 'wire/dojo/dom' }
+		// We could use wire's builtin dom query resolver
+		{ module: 'wire/dom' }
+		// Or use dojo.query as our dom query resolver
+//		{ module: 'wire/dojo/dom' }
 		// Or we could use jquery
-		// { module: 'wire/jquery/dom' }
+//		{ module: 'wire/jquery/dom' }
 		// Or sizzle!
-		// { module: 'wire/sizzle' }
+//		{ module: 'wire/sizzle' }
 	],
 	css: [
 		{ module: 'css!styles/gray.css' }
@@ -19,7 +20,7 @@ define({
 	// provided by the wire/dojo/store plugin
 	questionData: { $ref: 'resource!data/codez.json', query: {} },
 	// Or alternately, we can just use AMD to pull in JSONP data!
-	// questionData: { module: 'data/codez' },
+//	questionData: { module: 'data/codez' },
 	turns: 2,
 	// Could easily pull this scoring reference data from a datastore
 	// or JSONP, or simply use a plain old array, which works just fine
@@ -35,18 +36,18 @@ define({
 	codezView: {
 		create: {
 			module: 'view/codezView/CodezView',
-			args: { $ref: 'dom.query!.codez-container', i: 0 }
+			args: { $ref: 'dom.first!.codez-container' }
 		}
 	},
 	// Header
 	headingView: {
 		create: {
 			module: 'view/headingView/HeadingView',
-			args: { $ref: 'dom.query!.heading-container', i: 0 }
+			args: { $ref: 'dom.first!.heading-container' }
 		}
 	},
 	// DOM Node into which we'll place the results view
-	resultsContainer: { $ref: 'dom.query!.results-container', i: 0 },
+	resultsContainer: { $ref: 'dom.first!.results-container' },
 	// App controller
 	controller: {
 		create: 'controller/PiratescriptController',
@@ -61,6 +62,6 @@ define({
 			// 
 			_showResultsView: { wire: { spec: 'results-spec', defer: true } }
 		},
-		init: 'ready'
+		ready: 'ready'
 	}
 });
