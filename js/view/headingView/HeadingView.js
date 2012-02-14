@@ -1,9 +1,10 @@
 define(
 [
+	'render',
 	'text!./HeadingView.html',
 	'css!./HeadingView.css'
 ],
-function (template) {
+function (render, template) {
 
 	var undef;
 
@@ -15,9 +16,7 @@ function (template) {
 	HeadingView.prototype = {
 
 		render: function(map) {
-			this.node.innerHTML = template.replace(/\$\{(\w+)\}/g, function(s, key) {
-				return map && map[key] !== undef ? map[key] : '';
-			});
+			this.node.innerHTML = render(template, map);
 		}
 
 	};

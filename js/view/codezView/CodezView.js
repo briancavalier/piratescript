@@ -22,21 +22,21 @@ function(when, querySelectorAll, event, render, template) {
 		},
 		
 		showCodez: function(codez) {
-			var d, self;
+			var d, node;
 			
 			this.render(codez);
 			
 			d = when.defer();
-			self = this;
+			node = this.node;
 			
 			function onclick (e) {
 				
 				if(/\bproceed-button\b/.test(e.target.className)) {
-					event.removeEventListener(self.node, 'click', onclick, false);
+					event.removeEventListener(node, 'click', onclick, false);
 					d.resolve();
 				}
 				else if(/\bpirate-button\b/.test(e.target.className)) {
-					var pirateButtons = querySelectorAll('.pirate-button', self.node);
+					var pirateButtons = querySelectorAll('.pirate-button', node);
 					pirateButtons.forEach(function (button) {
 						button.disabled = true;
 					});
@@ -55,9 +55,7 @@ function(when, querySelectorAll, event, render, template) {
 			node = querySelectorAll('.codez-view', this.node)[0];
 
 			// change state
-			node.className += ' answered';
-
-			node.className += ' ' + (value ? 'correct' : 'incorrect');
+			node.className += ' answered ' + (value ? 'correct' : 'incorrect');
 		}
 	};
 
