@@ -1,7 +1,7 @@
 define(
 [
 	'when',
-	'querySelectorAll',
+	'querySelectorAll!',
 	'event',
 	'render',
 	'text!./CodezView.html',

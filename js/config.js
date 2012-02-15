@@ -12,7 +12,7 @@
 		paths: {
 			jquery: 'jquery-1.7.min',
 			'curl/domReady': 'curl/src/curl/domReady',
-			querySelectorAll: 'sizzle',
+//			querySelectorAll: 'sizzle',
 			array: 'arrr/array',
 			render: 'view/render',
 			data: '../data',
