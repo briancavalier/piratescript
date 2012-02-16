@@ -4,14 +4,15 @@ define({
 		// Enable wire debug and app tracing to see some magic
 		{ module: 'wire/debug', trace: true },
 		{ module: 'wire/dojo/store' },
-		// We could use wire's builtin dom query resolver
-		{ module: 'wire/dom' }
+		// We could use wire's builtin dom query resolver, which uses
+		// querySelectorAll
+//		{ module: 'wire/dom' }
 		// Or use dojo.query as our dom query resolver
 //		{ module: 'wire/dojo/dom' }
 		// Or we could use jquery
 //		{ module: 'wire/jquery/dom' }
 		// Or sizzle!
-//		{ module: 'wire/sizzle' }
+		{ module: 'wire/sizzle' }
 	],
 	css: [
 		{ module: 'css!styles/gray.css' }
