@@ -12,4 +12,4 @@
 	url = git://github.com/cujojs/aop.git
 [submodule "js/poly"]
 	path = js/poly
-	url = cujojs:poly
+	url = git://github.com/cujojs/poly.git
